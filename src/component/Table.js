@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import MayContext from '../context/MayContext';
 
 function Table() {
-  const { filters: { dataFilters }, filterValues: { dataFilters2 } } = useContext(MayContext);
+  const { filters: { dataFilters },
+    filterValues: { dataFilters2 } } = useContext(MayContext);
 
   if (dataFilters === undefined) {
     return 'carregando...';
@@ -63,12 +64,6 @@ function Table() {
       </tbody>
     );
   }
-
-  /* function handleRoute() {
-    if (dataFilters2) {
-      return table2();
-    }
-  } */
 
   return (
 

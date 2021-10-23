@@ -2,14 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MayContext from './MayContext';
 
-const options = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
-
+// referencia para fazer esse "dataFilters " do colega João Vitor Cordeiro.
 function StarProvider({ children }) {
   const [data, setData] = useState();
   const [filters, setFilters] = useState({
@@ -18,10 +11,7 @@ function StarProvider({ children }) {
       name: '',
     },
   });
-  const [optionFilter, setOpionFilter] = useState(options);
   const [filterValues, setFilterValues] = useState({
-
-    removeFiltter: optionFilter,
     dataFilters2: data,
     filterByNumericValues: [
       {
@@ -31,7 +21,6 @@ function StarProvider({ children }) {
       },
     ],
   });
-  console.log(optionFilter);
 
   useEffect(() => {
     async function requiFetch() {
@@ -43,13 +32,7 @@ function StarProvider({ children }) {
     requiFetch();
   }, []);
 
-  /* function FilterName(value) {
-    const newFilter = data.filter((filt) => filt.name.toLowerCase()
-      .includes(value.toLowerCase()));
-    console.log(filters);
-    setFilters({ ...filters, dataFilters: newFilter });
-  } */
-
+  // referencia para fazer esse "dataFilters " do colega João Vitor Cordeiro.
   function handleChangeFilters({ target: { value } }) {
     const newFilter = data.filter((filt) => filt.name.toLowerCase()
       .includes(value.toLowerCase()));
@@ -57,7 +40,11 @@ function StarProvider({ children }) {
   }
 
   return (
-    <MayContext.Provider value={ { data, filters, filterValues, setOpionFilter, createNewArray, handleChangeFilters, setFilterValues } }>
+    <MayContext.Provider
+      value={
+        { data, filters, filterValues, handleChangeFilters, setFilterValues }
+      }
+    >
 
       {children}
 

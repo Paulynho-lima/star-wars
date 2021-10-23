@@ -1,41 +1,56 @@
 import React, { useContext, useState } from 'react';
 import MayContext from '../context/MayContext';
 
+const options = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
 function ColumSelect() {
+  const [optionFilter, setOpionFilter] = useState(options);
   const [column, setColumn] = useState('');
   const [comparison, setComparison] = useState('');
   const [value, setValue] = useState('');
-  const { data, filterValues, setFilterValues, setOpionFilter } = useContext(MayContext);
-  const { removeFiltter } = filterValues;
+  const { data, filterValues, setFilterValues } = useContext(MayContext);
+
   function handleFormSubmit(e) {
     e.preventDefault();
   }
 
   function remove() {
-    // const { filterByNumericValues: [{ column }], removeFiltter } = filterValues;
-    const newOption = removeFiltter.filter((option) => option !== column);
+    const newOption = options.filter((option) => option !== column);
     setOpionFilter(newOption);
-
-    console.log(newOption);
   }
 
   function Filter() {
     remove();
 
     if (comparison === 'maior que') {
-      const newFilter = data.filter((filt) => parseFloat(filt[column]) > parseFloat(value));
-      setFilterValues({ ...filterValues, filterByNumericValues: { column, comparison, value }, dataFilters2: newFilter,
+      const newFilter = data
+        .filter((filt) => parseFloat(filt[column]) > parseFloat(value));
+      setFilterValues({ ...filterValues,
+        filterByNumericValues: { column, comparison, value },
+        dataFilters2: newFilter,
       });
     }
 
     if (comparison === 'menor que') {
-      const newFilter = data.filter((filt) => parseFloat(filt[column]) < parseFloat(value));
-      setFilterValues({ ...filterValues, filterByNumericValues: { column, comparison, value }, dataFilters2: newFilter,
+      const newFilter = data
+        .filter((filt) => parseFloat(filt[column]) < parseFloat(value));
+      setFilterValues({ ...filterValues,
+        filterByNumericValues: { column, comparison, value },
+        dataFilters2: newFilter,
       });
     }
     if (comparison === 'igual a') {
-      const newFilter = data.filter((filt) => parseFloat(filt[column]) === parseFloat(value));
-      setFilterValues({ ...filterValues, filterByNumericValues: { column, comparison, value }, dataFilters2: newFilter,
+      const newFilter = data
+        .filter((filt) => parseFloat(filt[column]) === parseFloat(value));
+      setFilterValues({ ...filterValues,
+        filterByNumericValues: { column, comparison, value },
+        dataFilters2: newFilter,
       });
     }
 
@@ -59,21 +74,13 @@ function ColumSelect() {
         onChange={ (e) => setColumn(e.target.value) }
         data-testid="column-filter"
       >
-        {/*
-        <option value="" disabled selected>Selecione uma opção</option>
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
- */}
-        { removeFiltter.map((option, index) => (
+        { optionFilter.map((option, index) => (
 
           <option key={ index } value={ option }>{ option }</option>
 
         )) }
       </select>
-      {console.log(removeFiltter)}
+      {console.log(optionFilter)}
       <select
         name="comparison"
         id="comparison"
@@ -96,7 +103,13 @@ function ColumSelect() {
         onChange={ (e) => setValue(e.target.value) }
         data-testid="value-filter"
       />
-      <button type="button" onClick={ Filter } data-testid="button-filter">Filtrar</button>
+      <button
+        type="button"
+        onClick={ Filter }
+        data-testid="button-filter"
+      >
+        Filtrar
+      </button>
     </form>
 
   );

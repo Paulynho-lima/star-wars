@@ -17,7 +17,7 @@ function Table() {
 
         {dataFilters && dataFilters.map((dat, index) => (
           <tr key={ index }>
-            <td style={ { border: bord } }>{ dat.name }</td>
+            <td data-testid="planet-name" style={ { border: bord } }>{ dat.name }</td>
             <td style={ { border: bord } }>{dat.orbital_period}</td>
             <td style={ { border: bord } }>{dat.population}</td>
             <td style={ { border: bord } }>{dat.rotation_period}</td>
@@ -45,7 +45,7 @@ function Table() {
       <tbody>
         {dataFilters2 && dataFilters2.map((dat2, index) => (
           <tr key={ index }>
-            <td style={ { border: bord } }>{ dat2.name }</td>
+            <td data-testid="planet-name" style={ { border: bord } }>{ dat2.name }</td>
             <td style={ { border: bord } }>{dat2.orbital_period}</td>
             <td style={ { border: bord } }>{dat2.population}</td>
             <td style={ { border: bord } }>{dat2.rotation_period}</td>

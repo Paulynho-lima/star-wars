@@ -8,13 +8,23 @@ const options = [
   'rotation_period',
   'surface_water',
 ];
+const columnTable = ['name', 'created', 'edited', 'films', 'rotation_period',
+  'orbital_period', 'diameter', 'climate', 'gravity', 'terrain',
+  'surfaceWater', 'population', 'url'];
 
 function ColumSelect() {
+  const [filterList, setFilterList] = useState([{
+    column: '',
+    comparison: '',
+    value: '',
+  }]);
   const [optionFilter, setOpionFilter] = useState(options);
   const [column, setColumn] = useState('');
   const [comparison, setComparison] = useState('');
   const [value, setValue] = useState('');
-  const { data, filterValues, setFilterValues } = useContext(MayContext);
+  const [sortColumn, setSortColumn] = useState('name');
+  const [sortValue, setSortValue] = useState('');
+  const { data, filterValues, submitOrder, setFilterValues } = useContext(MayContext);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -53,7 +63,7 @@ function ColumSelect() {
         dataFilters2: newFilter,
       });
     }
-
+    setFilterList((prev) => [...prev, { column, comparison, value }]);
     /* com switch////
     const newFilter = data.filter((filt) => parseFloat(filt[column]) > parseFloat(value));
 
@@ -63,6 +73,19 @@ function ColumSelect() {
       });
     default: setFilterValues(data);
     } */
+  }
+  function removeFilter(column2) {
+    setFilterList(filterList.filter(({ column: column1 }) => column1 !== column2));
+    setFilterValues({
+
+      filterByNumericValues: [
+        {
+          column: '',
+          comparison: '',
+          value: '',
+        },
+      ],
+    });
   }
 
   return (
@@ -80,7 +103,7 @@ function ColumSelect() {
 
         )) }
       </select>
-      {console.log(optionFilter)}
+
       <select
         name="comparison"
         id="comparison"
@@ -109,6 +132,65 @@ function ColumSelect() {
         data-testid="button-filter"
       >
         Filtrar
+      </button>
+
+      {filterList.map((obj, index) => (
+        <ul key={ index }>
+          <li data-testid="filter">
+            { `${obj.column} ${obj.comparison} ${obj.value}` }
+            <button
+              type="button"
+              onClick={ (() => removeFilter(column)) }
+            >
+              X
+            </button>
+          </li>
+        </ul>
+      ))}
+
+      <label htmlFor="sortFilter">
+        <select
+          name="sortFilter"
+          id="sortFilter"
+          data-testid="column-sort"
+          onChange={ (e) => setSortColumn(e.target.value) }
+        >
+          {columnTable.map((optio, index) => (
+
+            <option key={ index } value={ optio }>{optio}</option>
+          ))}
+        </select>
+      </label>
+      <label htmlFor="ASC">
+        ASC
+        <input
+          type="radio"
+          name="sortRadio"
+          id="ASC"
+          value="ASC"
+          data-testid="column-sort-input-asc"
+          onChange={ (e) => setSortValue(e.target.value) }
+        />
+
+      </label>
+      <label htmlFor="DESC">
+        DESC
+        <input
+          type="radio"
+          name="sortRadio"
+          id="DESC"
+          value="DESC"
+          data-testid="column-sort-input-desc"
+          onChange={ (e) => setSortValue(e.target.value) }
+        />
+
+      </label>
+      <button
+        type="button"
+        data-testid="column-sort-button"
+        onClick={ () => submitOrder(sortColumn, sortValue) }
+      >
+        SubmitOrder
       </button>
     </form>
 

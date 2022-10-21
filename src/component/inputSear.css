@@ -1,0 +1,12 @@
+.divSearch {
+  display: flex;
+  flex-direction: column;
+  margin-right: 13%;
+  margin-top: -2%;
+}
+
+.divSearch label {
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+}

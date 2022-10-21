@@ -1,10 +1,14 @@
-import React, { useContext } from 'react';
-import MayContext from '../context/MayContext';
+/* eslint-disable react/jsx-curly-spacing */
+/* eslint-disable quotes */
+// eslint-disable-next-line quotes
+import React, { useContext } from "react";
+import MayContext from "../context/MayContext";
+import "./inputSear.css";
 
 function InputSearch() {
   const { handleChangeFilters } = useContext(MayContext);
   return (
-    <div>
+    <div className="divSearch">
       <span>
         <label htmlFor="nome">
           Search
@@ -14,11 +18,10 @@ function InputSearch() {
             type="text"
             name="nome"
             // value={ name }
-            onChange={ handleChangeFilters }
+            onChange={handleChangeFilters}
           />
         </label>
       </span>
-
     </div>
   );
 }

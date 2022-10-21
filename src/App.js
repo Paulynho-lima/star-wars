@@ -1,14 +1,15 @@
-import React from 'react';
-import './App.css';
-import Table from './component/Table';
-import InputSearch from './component/InputSearch';
-import StarProvider from './context/StarProvider';
-import ColumSelect from './component/SelectForm';
+/* eslint-disable quotes */
+import React from "react";
+import "./App.css";
+import Table from "./component/Table";
+import InputSearch from "./component/InputSearch";
+import StarProvider from "./context/StarProvider";
+import ColumSelect from "./component/SelectForm";
 
 function App() {
   return (
     <StarProvider>
-      <div>
+      <div className="divmain">
         <span>
           <h1>Star Wars Planets</h1>
         </span>
@@ -17,7 +18,6 @@ function App() {
           <ColumSelect />
         </div>
         <Table />
-
       </div>
     </StarProvider>
   );
